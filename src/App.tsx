@@ -10,7 +10,7 @@ function App() {
       <div className="">
         <Auth />
       </div>
-      <ToastContainer />
+      <ToastContainer pauseOnHover={false} autoClose={2000} />
     </>
   );
 }
