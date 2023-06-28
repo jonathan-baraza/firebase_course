@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { auth } from "../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "../config/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 
@@ -9,6 +13,9 @@ export const Auth = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    Boolean(auth?.currentUser)
+  );
   const handleSignIn = async () => {
     if (!email || !password) {
       return toast.error("Please provide all inputs");
@@ -19,6 +26,7 @@ export const Auth = () => {
         console.log("Sign in response");
         console.log(res);
         toast.success("Sign up was successfull");
+        // setIsAuthenticated(true);
       })
       .catch((err) => {
         setError(err.message.split(":")[1]);
@@ -32,8 +40,42 @@ export const Auth = () => {
       });
   };
 
+  auth.onAuthStateChanged((user) => {
+    setIsAuthenticated(Boolean(user));
+  });
+
   const handleGoogleSignIn = async () => {
-    toast("google singing in now");
+    try {
+      await signInWithPopup(auth, googleProvider)
+        .then((res) => {
+          // setIsAuthenticated(true);
+          console.log("Google Sign in response");
+          console.log(res);
+          toast.success("Sign up was successfull");
+        })
+        .catch((err) => {
+          setError(err.message.split(":")[1]);
+          setTimeout(() => {
+            setError("");
+          }, 4000);
+          // toast.error(err.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      toast("You have been logged out!");
+      // setIsAuthenticated(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (loading) {
@@ -46,12 +88,20 @@ export const Auth = () => {
 
   return (
     <div className="w-full flex justify-center min-h-[100vh] items-center p-3">
-      {auth.currentUser?.email && (
-        <span className="absolute left-4 top-4 border border-green-600 rounded text-green-600 text-sm p-2 px-2 bg-green-50">
-          {auth.currentUser.email}
-        </span>
+      {isAuthenticated && (
+        <div className="absolute left-4 top-4">
+          <span className=" border border-green-600 rounded text-green-600 text-sm p-2 px-2 bg-green-50">
+            {auth?.currentUser?.email}
+          </span>
+          <button
+            onClick={handleSignOut}
+            className="bg-gray-800 text-white p-2 ml-2 text-sm rounded-xl"
+          >
+            Sign out
+          </button>
+        </div>
       )}
-      <div className="border bg-[#f4ffff] flex flex-col space-y-4 items-center md:w-50 w-[90%] p-9 rounded-2xl shadow-sm">
+      <div className="border bg-[#f4ffff] flex flex-col space-y-4 items-center md:w-1/2 w-[90%] p-9 rounded-2xl shadow-sm">
         <span className="text-2xl font-bold ">Signup</span>
         {error && (
           <span className="text-red-500 bg-red-100 border-red-500 border p-2 rounded-lg px-4 py-2">
