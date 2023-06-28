@@ -7,7 +7,10 @@ export const Auth = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const handleSignIn = async () => {
-    toast("hello there");
+    if (!email || !password) {
+      return toast.error("Please provide all inputs");
+    }
+    toast("Aluta continua! " + email + password);
   };
 
   return (
