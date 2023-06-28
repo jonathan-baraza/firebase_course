@@ -13,9 +13,8 @@ export const Auth = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    Boolean(auth?.currentUser)
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
+  // Boolean(auth?.currentUser)
   const handleSignIn = async () => {
     if (!email || !password) {
       return toast.error("Please provide all inputs");
@@ -40,9 +39,11 @@ export const Auth = () => {
       });
   };
 
-  auth.onAuthStateChanged((user) => {
-    setIsAuthenticated(Boolean(user));
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(Boolean(user));
+    });
+  }, []);
 
   const handleGoogleSignIn = async () => {
     try {
