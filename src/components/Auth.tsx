@@ -90,9 +90,15 @@ export const Auth = () => {
   return (
     <div className="w-full flex justify-center min-h-[100vh] items-center p-3">
       {isAuthenticated && (
-        <div className="absolute left-4 top-4">
-          <span className=" border border-green-600 rounded text-green-600 text-sm p-2 px-2 bg-green-50">
-            {auth?.currentUser?.email}
+        <div className="absolute left-4 top-4 flex items-center">
+          <span className=" border flex items-center border-green-600 rounded text-green-600 text-sm p-2 px-2 bg-green-50">
+            {auth?.currentUser?.photoURL && (
+              <img
+                src={auth?.currentUser?.photoURL}
+                className="w-[30px] h-[30px] mr-2 rounded-full"
+              />
+            )}
+            <span> {auth?.currentUser?.email}</span>
           </span>
           <button
             onClick={handleSignOut}
