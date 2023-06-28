@@ -4,7 +4,7 @@ import { useState } from "react";
 function App() {
   return (
     <>
-      <div className="text-red-500 text-3xl m-5 p-5">Hello worlds</div>
+      <div className="text-red-500 text-3xl m-5 p-5">Hello world</div>
     </>
   );
 }
