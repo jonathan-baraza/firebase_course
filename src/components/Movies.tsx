@@ -14,6 +14,7 @@ type movieType = {
 const Movies = () => {
   const [movieList, setMovieList] = useState<movieType[]>([]);
   const moviesCollectionRef = collection(db, "movies");
+  const [showAddForm, setShowAddForm] = useState<boolean>(false);
 
   const getMovieList = async () => {
     try {
