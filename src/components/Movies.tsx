@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { toast } from "react-toastify";
 import { getDocs, collection } from "firebase/firestore";
+import AddMovie from "./AddMovie";
 
 type movieType = {
   id: string;
@@ -37,36 +38,41 @@ const Movies = () => {
     getMovieList();
   }, []);
   return (
-    <div className="flex flex-col items-center space-y-5 p-4">
-      <span className="text-2xl font-bold ">My movies {movieList?.length}</span>
-      <table className="border w-full lg:w-3/4 ">
-        <thead className="bg-green-600 font-semibold text-white">
-          <tr>
-            <td>ID</td>
-            <td>MOVIE</td>
-            <td>RELEASE DATE</td>
-            <td>RECEIVED AN OSCAR</td>
-            <td colSpan={2}>ACTIONS</td>
-          </tr>
-        </thead>
-        <tbody>
-          {movieList.map((movie, index) => (
-            <tr key={movie.id}>
-              <td className="">{index + 1}</td>
-              <td className="">{movie.title}</td>
-              <td className="">{movie.releaseDate}</td>
-              <td className="">{String(movie.receivedAnOscar)}</td>
-              <td className="font-semibold text-yellow-500 cursor-pointer hover:underline">
-                Edit
-              </td>
-              <td className="font-semibold text-red-500 cursor-pointer hover:underline">
-                Delete
-              </td>
+    <>
+      <AddMovie />
+      <div className="flex flex-col items-center space-y-5 p-4">
+        <span className="text-2xl font-bold ">
+          My movies {movieList?.length}
+        </span>
+        <table className="border w-full lg:w-3/4 ">
+          <thead className="bg-green-600 font-semibold text-white">
+            <tr>
+              <td>ID</td>
+              <td>MOVIE</td>
+              <td>RELEASE DATE</td>
+              <td>RECEIVED AN OSCAR</td>
+              <td colSpan={2}>ACTIONS</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {movieList.map((movie, index) => (
+              <tr key={movie.id}>
+                <td className="">{index + 1}</td>
+                <td className="">{movie.title}</td>
+                <td className="">{movie.releaseDate}</td>
+                <td className="">{String(movie.receivedAnOscar)}</td>
+                <td className="font-semibold text-yellow-500 cursor-pointer hover:underline">
+                  Edit
+                </td>
+                <td className="font-semibold text-red-500 cursor-pointer hover:underline">
+                  Delete
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
