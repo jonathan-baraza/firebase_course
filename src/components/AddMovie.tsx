@@ -14,7 +14,7 @@ function AddMovie({ closeForm }: PropTypes) {
     if (!title || !releaseDate) {
       return toast.warning("kindly provide all inputs");
     } else {
-      //
+      setloading(true);
     }
   };
 
