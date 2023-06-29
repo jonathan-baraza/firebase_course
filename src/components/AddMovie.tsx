@@ -1,6 +1,10 @@
 import React from "react";
 
-function AddMovie() {
+interface PropTypes {
+  closeForm: () => void;
+}
+
+function AddMovie({ closeForm }: PropTypes) {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center"
