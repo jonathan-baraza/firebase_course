@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { toast } from "react-toastify";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import AddMovie from "./AddMovie";
 
 type movieType = {
@@ -35,6 +35,17 @@ const Movies = () => {
       if (error instanceof Error) toast.error(error.message);
     } finally {
       setloading(false);
+    }
+  };
+
+  const handleDelete = async (movie: movieType) => {
+    try {
+      const movieDoc = doc(db, "movies", movie.id);
+      await deleteDoc(movieDoc);
+      toast.error("Movie deleted successfully");
+      getMovieList();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -84,7 +95,10 @@ const Movies = () => {
                 <td className="font-semibold text-yellow-500 cursor-pointer hover:underline">
                   Edit
                 </td>
-                <td className="font-semibold text-red-500 cursor-pointer hover:underline">
+                <td
+                  onClick={() => handleDelete(movie)}
+                  className="font-semibold text-red-500 cursor-pointer hover:underline"
+                >
                   Delete
                 </td>
               </tr>
