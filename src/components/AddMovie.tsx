@@ -5,9 +5,10 @@ import { db } from "../config/firebase";
 
 interface PropTypes {
   closeForm: () => void;
+  refetch: () => void;
 }
 
-function AddMovie({ closeForm }: PropTypes) {
+function AddMovie({ closeForm, refetch }: PropTypes) {
   const [title, setTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<number>();
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
@@ -25,6 +26,8 @@ function AddMovie({ closeForm }: PropTypes) {
           releaseDate,
           receivedAnOscar,
         });
+        toast.success("Movie added successfully");
+        refetch();
       } catch (error) {
         console.log(error);
         {
