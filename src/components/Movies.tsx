@@ -15,6 +15,7 @@ const Movies = () => {
   const [movieList, setMovieList] = useState<movieType[]>([]);
   const moviesCollectionRef = collection(db, "movies");
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
+  const [loading, setloading] = useState<boolean>(true);
 
   const getMovieList = async () => {
     try {
@@ -32,15 +33,27 @@ const Movies = () => {
     } catch (error) {
       console.log(error);
       if (error instanceof Error) toast.error(error.message);
+    } finally {
+      setloading(false);
     }
   };
 
   useEffect(() => {
     getMovieList();
   }, []);
+  if (loading)
+    return <div className="p-4 font-bold text-center">Loading movies...</div>;
   return (
     <>
-      {showAddForm && <AddMovie closeForm={() => setShowAddForm(false)} />}
+      {showAddForm && (
+        <AddMovie
+          closeForm={() => setShowAddForm(false)}
+          refetch={() => {
+            setShowAddForm(false);
+            getMovieList();
+          }}
+        />
+      )}
       <div className="flex relative flex-col items-center space-y-5 p-4">
         <span className="text-2xl font-bold ">
           My movies #({movieList?.length})
