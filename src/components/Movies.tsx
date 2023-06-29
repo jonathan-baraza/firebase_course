@@ -40,7 +40,7 @@ const Movies = () => {
   }, []);
   return (
     <>
-      <AddMovie />
+      {showAddForm && <AddMovie closeForm={() => setShowAddForm(false)} />}
       <div className="flex flex-col items-center space-y-5 p-4">
         <span className="text-2xl font-bold ">
           My movies {movieList?.length}
