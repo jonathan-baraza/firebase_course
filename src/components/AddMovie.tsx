@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 interface PropTypes {
   closeForm: () => void;
@@ -10,11 +12,27 @@ function AddMovie({ closeForm }: PropTypes) {
   const [releaseDate, setReleaseDate] = useState<number>();
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(false);
+  const moviesCollectionRef = collection(db, "movies");
   const handleSubmit = async () => {
     if (!title || !releaseDate) {
       return toast.warning("kindly provide all inputs");
     } else {
       setloading(true);
+
+      try {
+        await addDoc(moviesCollectionRef, {
+          title,
+          releaseDate,
+          receivedAnOscar,
+        });
+      } catch (error) {
+        console.log(error);
+        {
+          error instanceof Error && toast.error(error.message);
+        }
+      } finally {
+        setloading(false);
+      }
     }
   };
 
