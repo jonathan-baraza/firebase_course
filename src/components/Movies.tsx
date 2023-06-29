@@ -41,10 +41,16 @@ const Movies = () => {
   return (
     <>
       {showAddForm && <AddMovie closeForm={() => setShowAddForm(false)} />}
-      <div className="flex flex-col items-center space-y-5 p-4">
+      <div className="flex relative flex-col items-center space-y-5 p-4">
         <span className="text-2xl font-bold ">
-          My movies {movieList?.length}
+          My movies #({movieList?.length})
         </span>
+        <button
+          onClick={() => setShowAddForm(true)}
+          className="bg-blue-500 text-white p-2 px-6 rounded-lg absolute right-2 top-0"
+        >
+          Add
+        </button>
         <table className="border w-full lg:w-3/4 ">
           <thead className="bg-green-600 font-semibold text-white">
             <tr>
