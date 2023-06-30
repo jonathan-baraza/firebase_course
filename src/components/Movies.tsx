@@ -40,6 +40,7 @@ const Movies = () => {
 
   const handleDelete = async (movie: movieType) => {
     try {
+      //append movie id to the end
       const movieDoc = doc(db, "movies", movie.id);
       await deleteDoc(movieDoc);
       toast.error("Movie deleted successfully");
