@@ -2,13 +2,16 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { movieType } from "../Types/movie";
 
 interface PropTypes {
   closeForm: () => void;
   refetch: () => void;
+  idEditing: boolean;
+  editingMovie: movieType;
 }
 
-function AddMovie({ closeForm, refetch }: PropTypes) {
+function AddMovie({ closeForm, refetch, idEditing, editingMovie }: PropTypes) {
   const [title, setTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<number>();
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
@@ -38,8 +41,6 @@ function AddMovie({ closeForm, refetch }: PropTypes) {
       }
     }
   };
-
-
 
   return (
     <div
