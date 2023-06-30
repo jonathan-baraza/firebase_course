@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { movieType } from "../Types/movie";
 
@@ -45,9 +45,17 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
   };
 
   const handleEditMovie = async () => {
-    const movieRef = collection(moviesCollectionRef, editingMovie.id);
     try {
-      toast.success("editingMovie.title");
+      setloading(true);
+      const movieRef = doc(db, "movies", editingMovie.id);
+      await updateDoc(movieRef, {
+        title,
+        releaseDate,
+        receivedAnOscar,
+      });
+      toast.info("Updated successfully");
+      closeForm();
+      refetch();
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
