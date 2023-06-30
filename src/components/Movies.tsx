@@ -17,7 +17,7 @@ const Movies = () => {
   const moviesCollectionRef = collection(db, "movies");
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(true);
-  const [editingMovie, setEditingMovie] = useState<movieType>();
+  const [editingMovie, setEditingMovie] = useState<movieType | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getMovieList = async () => {
@@ -70,6 +70,7 @@ const Movies = () => {
         <AddMovie
           closeForm={() => {
             setIsEditing(false);
+            setEditingMovie(null);
             setShowAddForm(false);
           }}
           refetch={() => {
