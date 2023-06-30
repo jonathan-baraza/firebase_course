@@ -44,6 +44,10 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
     }
   };
 
+  const handleEdit = async () => {
+    toast.info("updating");
+  };
+
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-30"
@@ -106,7 +110,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             </div>
           </div>
           <button
-            onClick={handleSubmit}
+            onClick={isEditing ? handleEdit : handleSubmit}
             className={`${
               !isEditing ? "bg-green-600" : "bg-yellow-600"
             } hover:${
