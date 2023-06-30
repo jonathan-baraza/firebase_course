@@ -57,7 +57,9 @@ const Movies = () => {
     }
   };
 
-  const handleShowEditForm = () => {};
+  const handleShowEditForm = () => {
+    //
+  };
 
   useEffect(() => {
     getMovieList();
