@@ -55,6 +55,7 @@ const Movies = () => {
 
   const handleShowEditForm = (movie: movieType) => {
     setIsEditing(true);
+    setEditingMovie(movie);
     setShowAddForm(true);
   };
 
