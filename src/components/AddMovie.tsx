@@ -44,8 +44,17 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
     }
   };
 
-  const handleEdit = async () => {
-    toast.info("updating");
+  const handleEditMovie = async () => {
+    const movieRef = collection(moviesCollectionRef, editingMovie.id);
+    try {
+      toast.success("editingMovie.title");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    } finally {
+      setloading(false);
+    }
   };
 
   return (
@@ -110,7 +119,13 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             </div>
           </div>
           <button
-            onClick={isEditing ? handleEdit : handleSubmit}
+            onClick={() => {
+              if (isEditing) {
+                handleEditMovie();
+              } else {
+                handleSubmit();
+              }
+            }}
             className={`${
               !isEditing ? "bg-green-600" : "bg-yellow-600"
             } hover:${
