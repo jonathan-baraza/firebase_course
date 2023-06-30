@@ -67,7 +67,10 @@ const Movies = () => {
     <>
       {showAddForm && (
         <AddMovie
-          closeForm={() => setShowAddForm(false)}
+          closeForm={() => {
+            setIsEditing(false);
+            setShowAddForm(false);
+          }}
           refetch={() => {
             setShowAddForm(false);
             getMovieList();
