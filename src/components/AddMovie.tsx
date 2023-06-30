@@ -104,7 +104,11 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
           </div>
           <button
             onClick={handleSubmit}
-            className="bg-green-600 hover:bg-green-800 text-white p-2 rounded-xl w-fit px-6 mt-4 ml-auto"
+            className={`${
+              !isEditing ? "bg-green-600" : "bg-yellow-600"
+            } hover:${
+              !isEditing ? "bg-green-800" : "bg-yellow-800"
+            } text-white p-2 rounded-xl w-fit px-6 mt-4 ml-auto`}
           >
             {!isEditing ? "Submit" : "Update"}
           </button>
