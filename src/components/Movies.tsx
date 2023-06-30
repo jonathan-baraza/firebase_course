@@ -72,7 +72,7 @@ const Movies = () => {
             setShowAddForm(false);
             getMovieList();
           }}
-          idEditing={isEditing}
+          isEditing={isEditing}
           editingMovie={editingMovie!}
         />
       )}

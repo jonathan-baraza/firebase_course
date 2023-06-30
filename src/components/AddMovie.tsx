@@ -7,11 +7,11 @@ import { movieType } from "../Types/movie";
 interface PropTypes {
   closeForm: () => void;
   refetch: () => void;
-  idEditing: boolean;
+  isEditing: boolean;
   editingMovie: movieType;
 }
 
-function AddMovie({ closeForm, refetch, idEditing, editingMovie }: PropTypes) {
+function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
   const [title, setTitle] = useState<string>("");
   const [releaseDate, setReleaseDate] = useState<number>();
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
@@ -106,7 +106,7 @@ function AddMovie({ closeForm, refetch, idEditing, editingMovie }: PropTypes) {
             onClick={handleSubmit}
             className="bg-green-600 hover:bg-green-800 text-white p-2 rounded-xl w-fit px-6 mt-4 ml-auto"
           >
-            Submit
+            {!isEditing ? "Submit" : "Update"}
           </button>
         </>
         {loading && (
