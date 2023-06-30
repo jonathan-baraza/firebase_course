@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { toast } from "react-toastify";
-import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  deleteDoc,
+  doc,
+  orderBy,
+} from "firebase/firestore";
 import AddMovie from "./AddMovie";
 
 type movieType = {
@@ -16,6 +22,7 @@ const Movies = () => {
   const moviesCollectionRef = collection(db, "movies");
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(true);
+  const [editingMovie, setEditingMovie] = useState<movieType>();
 
   const getMovieList = async () => {
     try {
@@ -49,6 +56,8 @@ const Movies = () => {
       console.log(error);
     }
   };
+
+  const handleShowEditForm = () => {};
 
   useEffect(() => {
     getMovieList();
@@ -93,7 +102,12 @@ const Movies = () => {
                 <td className="">{movie.title}</td>
                 <td className="">{movie.releaseDate}</td>
                 <td className="">{String(movie.receivedAnOscar)}</td>
-                <td className="font-semibold text-yellow-500 cursor-pointer hover:underline">
+                <td
+                  onClick={() => {
+                    handleShowEditForm(true);
+                  }}
+                  className="font-semibold text-yellow-500 cursor-pointer hover:underline"
+                >
                   Edit
                 </td>
                 <td
