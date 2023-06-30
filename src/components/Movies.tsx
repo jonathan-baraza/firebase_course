@@ -10,12 +10,7 @@ import {
 } from "firebase/firestore";
 import AddMovie from "./AddMovie";
 
-type movieType = {
-  id: string;
-  title: string;
-  releaseDate: number;
-  receivedAnOscar: boolean;
-};
+import { movieType } from "../Types/movie";
 
 const Movies = () => {
   const [movieList, setMovieList] = useState<movieType[]>([]);
@@ -23,6 +18,7 @@ const Movies = () => {
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(true);
   const [editingMovie, setEditingMovie] = useState<movieType>();
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getMovieList = async () => {
     try {
@@ -57,8 +53,8 @@ const Movies = () => {
     }
   };
 
-  const handleShowEditForm = () => {
-    //
+  const handleShowEditForm = (movie: movieType) => {
+    //handling edit form
   };
 
   useEffect(() => {
@@ -75,6 +71,8 @@ const Movies = () => {
             setShowAddForm(false);
             getMovieList();
           }}
+          idEditing={isEditing}
+          editingMovie={editingMovie!}
         />
       )}
       <div className="flex relative flex-col items-center space-y-5 p-4">
@@ -106,7 +104,7 @@ const Movies = () => {
                 <td className="">{String(movie.receivedAnOscar)}</td>
                 <td
                   onClick={() => {
-                    handleShowEditForm(true);
+                    handleShowEditForm(movie);
                   }}
                   className="font-semibold text-yellow-500 cursor-pointer hover:underline"
                 >
