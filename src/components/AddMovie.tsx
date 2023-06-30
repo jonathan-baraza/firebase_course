@@ -12,8 +12,10 @@ interface PropTypes {
 }
 
 function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
-  const [title, setTitle] = useState<string>("");
-  const [releaseDate, setReleaseDate] = useState<number>();
+  const [title, setTitle] = useState<string>(editingMovie?.title);
+  const [releaseDate, setReleaseDate] = useState<number>(
+    editingMovie?.releaseDate
+  );
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(false);
   const moviesCollectionRef = collection(db, "movies");
@@ -56,7 +58,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             &times;
           </span>
           <span className="font-bold w-fit text-2xl mx-auto">
-            Add New Movie
+            {isEditing ? "Update" : "Add New "} Movie
           </span>
           <input
             className="border px-4 mt-3 rounded-lg py-2"
@@ -81,6 +83,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
                 name="receivedOscar"
                 placeholder="Release Date"
                 style={{ height: "20px", width: "20px" }}
+                defaultChecked={editingMovie?.receivedAnOscar}
                 onChange={() => {
                   setReceivedAnOscar(true);
                 }}
@@ -92,7 +95,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
                 className=""
                 type="radio"
                 name="receivedOscar"
-                defaultChecked
+                defaultChecked={!editingMovie?.receivedAnOscar}
                 placeholder="Release Date"
                 style={{ height: "20px", width: "20px" }}
                 onChange={() => {
