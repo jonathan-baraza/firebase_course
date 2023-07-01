@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
+import Movies from "./Movies";
 
 export const Auth = () => {
   const [email, setEmail] = useState<string>("");
@@ -88,7 +89,7 @@ export const Auth = () => {
   }
 
   return (
-    <div className="w-full flex justify-center min-h-[100vh] items-center p-3">
+    <div className="w-full flex flex-col  min-h-[100vh] items-center p-3">
       {isAuthenticated && (
         <div className="absolute left-4 top-4 flex items-center">
           <span className=" border flex items-center border-green-600 rounded text-green-600 text-sm p-2 px-2 bg-green-50">
@@ -146,6 +147,7 @@ export const Auth = () => {
           className="border p-2 border-gray-300 bg-white rounded h-[40px] w-[40px] hover:cursor-pointer hover:scale-110 duration-150  rounded-full"
         />
       </div>
+      <Movies />
     </div>
   );
 };
