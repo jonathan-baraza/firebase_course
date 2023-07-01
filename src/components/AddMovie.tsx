@@ -12,6 +12,8 @@ interface PropTypes {
 }
 
 function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
+  
+
   const [title, setTitle] = useState<string>(editingMovie?.title);
   const [releaseDate, setReleaseDate] = useState<number>(
     editingMovie?.releaseDate
