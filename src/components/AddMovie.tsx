@@ -80,7 +80,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             &times;
           </span>
           <span className="font-bold w-fit text-2xl mx-auto">
-            {isEditing ? "Update" : "Add New "} Movie {auth?.currentUser?.uid}
+            {isEditing ? "Update" : "Add New "} Movie
           </span>
           <input
             className="border px-4 mt-3 rounded-lg py-2"
