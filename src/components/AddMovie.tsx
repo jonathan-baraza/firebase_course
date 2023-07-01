@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, auth } from "../config/firebase";
 import { movieType } from "../Types/movie";
 
 interface PropTypes {
@@ -30,6 +30,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
           title,
           releaseDate,
           receivedAnOscar,
+          userId: auth?.currentUser?.uid,
         });
         toast.success("Movie added successfully");
         refetch();
@@ -79,7 +80,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             &times;
           </span>
           <span className="font-bold w-fit text-2xl mx-auto">
-            {isEditing ? "Update" : "Add New "} Movie
+            {isEditing ? "Update" : "Add New "} Movie {auth?.currentUser?.uid}
           </span>
           <input
             className="border px-4 mt-3 rounded-lg py-2"
