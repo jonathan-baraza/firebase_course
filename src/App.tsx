@@ -9,8 +9,8 @@ function App() {
   return (
     <>
       <div className="">
-        {/* <Auth /> */}
-        <Movies />
+        <Auth />
+        {/* <Movies /> */}
       </div>
       <ToastContainer pauseOnHover={false} autoClose={2000} />
     </>
