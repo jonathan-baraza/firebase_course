@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "../config/firebase";
+import { db, auth } from "../config/firebase";
 import { toast } from "react-toastify";
 import {
   getDocs,
@@ -86,7 +86,12 @@ const Movies = () => {
           My movies #({movieList?.length})
         </span>
         <button
-          onClick={() => setShowAddForm(true)}
+          onClick={() => {
+            if (!auth.currentUser) {
+              return toast.warning("kindly login first");
+            }
+            setShowAddForm(true);
+          }}
           className="bg-blue-500 text-white p-2 px-6 rounded-lg absolute right-2 top-0"
         >
           Add
