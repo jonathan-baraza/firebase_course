@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { db, auth } from "../config/firebase";
+import { db, auth, storage } from "../config/firebase";
 import { movieType } from "../Types/movie";
 
 interface PropTypes {
@@ -19,9 +19,10 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(false);
   const moviesCollectionRef = collection(db, "movies");
+  //file upload
   const [photo, setPhoto] = useState<File>();
   const handleSubmit = async () => {
-    if (!title || !releaseDate) {
+    if (!title || !releaseDate || !photo) {
       return toast.warning("kindly provide all inputs");
     } else {
       setloading(true);
