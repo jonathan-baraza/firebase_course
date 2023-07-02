@@ -21,30 +21,28 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
   const moviesCollectionRef = collection(db, "movies");
   const [photo, setPhoto] = useState<File>();
   const handleSubmit = async () => {
-    console.log("photo");
-    console.log(photo);
-    // if (!title || !releaseDate) {
-    //   return toast.warning("kindly provide all inputs");
-    // } else {
-    //   setloading(true);
-    //   try {
-    //     await addDoc(moviesCollectionRef, {
-    //       title,
-    //       releaseDate,
-    //       receivedAnOscar,
-    //       userId: auth?.currentUser?.uid, //also check created rules in firebase
-    //     });
-    //     toast.success("Movie added successfully");
-    //     refetch();
-    //   } catch (error) {
-    //     console.log(error);
-    //     {
-    //       error instanceof Error && toast.error(error.message);
-    //     }
-    //   } finally {
-    //     setloading(false);
-    //   }
-    // }
+    if (!title || !releaseDate) {
+      return toast.warning("kindly provide all inputs");
+    } else {
+      setloading(true);
+      try {
+        await addDoc(moviesCollectionRef, {
+          title,
+          releaseDate,
+          receivedAnOscar,
+          userId: auth?.currentUser?.uid, //also check created rules in firebase
+        });
+        toast.success("Movie added successfully");
+        refetch();
+      } catch (error) {
+        console.log(error);
+        {
+          error instanceof Error && toast.error(error.message);
+        }
+      } finally {
+        setloading(false);
+      }
+    }
   };
 
   const handleEditMovie = async () => {
