@@ -101,6 +101,7 @@ const Movies = () => {
             <tr>
               <td>ID</td>
               <td>MOVIE</td>
+              <td>TITLE</td>
               <td>RELEASE DATE</td>
               <td>RECEIVED AN OSCAR</td>
               <td colSpan={2}>ACTIONS</td>
@@ -110,6 +111,12 @@ const Movies = () => {
             {movieList.map((movie, index) => (
               <tr key={movie.id}>
                 <td className="">{index + 1}</td>
+                <td className="">
+                  <img
+                    src={movie.wallpaper}
+                    className="w-full object-contain mx-auto"
+                  />
+                </td>
                 <td className="">{movie.title}</td>
                 <td className="">{movie.releaseDate}</td>
                 <td className="">{String(movie.receivedAnOscar)}</td>
