@@ -82,7 +82,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             {isEditing ? "Update" : "Add New "} Movie
           </span>
           <input
-            className="border px-4 mt-3 rounded-lg py-2"
+            className="border px-4 mt-4 rounded-lg py-2"
             type="text"
             placeholder="Title"
             value={title}
@@ -95,7 +95,7 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             value={releaseDate}
             onChange={(e) => setReleaseDate(Number(e.target.value))}
           />
-          <div className="mt-6">Received an Oscar?</div>
+          <div className="mt-6 font-bold">Received an Oscar?</div>
           <div className="flex  space-x-10 p-3">
             <div className="flex items-center">
               <input
@@ -125,6 +125,12 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
               />
               <span className="ml-2">No</span>
             </div>
+          </div>
+          <div className="flex flex-col space-y-3 mt-3">
+            <label htmlFor="photo" className="font-bold">
+              Add movie wallpaper
+            </label>
+            <input type="file" id="photo" className="ml-4" />
           </div>
           <button
             onClick={() => {
