@@ -19,29 +19,32 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
   const [receivedAnOscar, setReceivedAnOscar] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(false);
   const moviesCollectionRef = collection(db, "movies");
+  const [photo, setPhoto] = useState<File>();
   const handleSubmit = async () => {
-    if (!title || !releaseDate) {
-      return toast.warning("kindly provide all inputs");
-    } else {
-      setloading(true);
-      try {
-        await addDoc(moviesCollectionRef, {
-          title,
-          releaseDate,
-          receivedAnOscar,
-          userId: auth?.currentUser?.uid, //also check created rules in firebase
-        });
-        toast.success("Movie added successfully");
-        refetch();
-      } catch (error) {
-        console.log(error);
-        {
-          error instanceof Error && toast.error(error.message);
-        }
-      } finally {
-        setloading(false);
-      }
-    }
+    console.log("photo");
+    console.log(photo);
+    // if (!title || !releaseDate) {
+    //   return toast.warning("kindly provide all inputs");
+    // } else {
+    //   setloading(true);
+    //   try {
+    //     await addDoc(moviesCollectionRef, {
+    //       title,
+    //       releaseDate,
+    //       receivedAnOscar,
+    //       userId: auth?.currentUser?.uid, //also check created rules in firebase
+    //     });
+    //     toast.success("Movie added successfully");
+    //     refetch();
+    //   } catch (error) {
+    //     console.log(error);
+    //     {
+    //       error instanceof Error && toast.error(error.message);
+    //     }
+    //   } finally {
+    //     setloading(false);
+    //   }
+    // }
   };
 
   const handleEditMovie = async () => {
@@ -130,7 +133,12 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
             <label htmlFor="photo" className="font-bold">
               Add movie wallpaper
             </label>
-            <input type="file" id="photo" className="ml-4" />
+            <input
+              type="file"
+              onChange={(e) => setPhoto(e.target.files?.[0])}
+              id="photo"
+              className="ml-4"
+            />
           </div>
           <button
             onClick={() => {
