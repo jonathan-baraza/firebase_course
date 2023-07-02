@@ -32,15 +32,17 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
 
         //reference
         const filesFolderRef = ref(storage, `projectFiles/${photo.name}`);
-
-        await addDoc(moviesCollectionRef, {
-          title,
-          releaseDate,
-          receivedAnOscar,
-          userId: auth?.currentUser?.uid, //also check created rules in firebase
-        });
-        toast.success("Movie added successfully");
-        refetch();
+        const fileResponse = await uploadBytes(filesFolderRef, photo);
+        console.log("fileResponse");
+        console.log(fileResponse);
+        // await addDoc(moviesCollectionRef, {
+        //   title,
+        //   releaseDate,
+        //   receivedAnOscar,
+        //   userId: auth?.currentUser?.uid, //also check created rules in firebase
+        // });
+        // toast.success("Movie added successfully");
+        // refetch();
       } catch (error) {
         console.log(error);
         {
