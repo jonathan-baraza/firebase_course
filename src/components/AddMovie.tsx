@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db, auth, storage } from "../config/firebase";
 import { movieType } from "../Types/movie";
+import { ref, uploadBytes } from "firebase/storage";
 
 interface PropTypes {
   closeForm: () => void;
@@ -27,6 +28,11 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
     } else {
       setloading(true);
       try {
+        //first upload file
+
+        //reference
+        const filesFolderRef = ref(storage, `projectFiles/${photo.name}`);
+
         await addDoc(moviesCollectionRef, {
           title,
           releaseDate,
