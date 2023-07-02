@@ -29,6 +29,7 @@ const Movies = () => {
         title: doc.data().title as string,
         releaseDate: Number(doc.data().releaseDate),
         receivedAnOscar: doc.data().receivedAnOscar as boolean,
+        wallpaper: doc.data().wallpaper as string,
         // ...doc.data(),
       }));
 
@@ -96,7 +97,7 @@ const Movies = () => {
         >
           Add
         </button>
-        <table className="border w-full lg:w-3/4 ">
+        <table className="border w-full ">
           <thead className="bg-green-600 font-semibold text-white">
             <tr>
               <td>ID</td>
@@ -114,7 +115,7 @@ const Movies = () => {
                 <td className="">
                   <img
                     src={movie.wallpaper}
-                    className="w-full object-contain mx-auto"
+                    className="w-[50px] object-contain mx-auto"
                   />
                 </td>
                 <td className="">{movie.title}</td>
