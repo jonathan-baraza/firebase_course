@@ -12,8 +12,6 @@ interface PropTypes {
 }
 
 function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
-  
-
   const [title, setTitle] = useState<string>(editingMovie?.title);
   const [releaseDate, setReleaseDate] = useState<number>(
     editingMovie?.releaseDate
@@ -26,13 +24,12 @@ function AddMovie({ closeForm, refetch, isEditing, editingMovie }: PropTypes) {
       return toast.warning("kindly provide all inputs");
     } else {
       setloading(true);
-
       try {
         await addDoc(moviesCollectionRef, {
           title,
           releaseDate,
           receivedAnOscar,
-          userId: auth?.currentUser?.uid,
+          userId: auth?.currentUser?.uid, //also check created rules in firebase
         });
         toast.success("Movie added successfully");
         refetch();
