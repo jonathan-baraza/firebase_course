@@ -3,4 +3,5 @@ export type movieType = {
   title: string;
   releaseDate: number;
   receivedAnOscar: boolean;
+  wallpaper: string;
 };
